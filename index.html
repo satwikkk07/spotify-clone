@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/utility.css" />
+  <title>Notify - Web Player: Music for everyone</title>
+  <link rel="icon" href="img/favicon.ico" type="image/x-icon">
+</head>
+
+<body>
+  <div class="container flex bg-black">
+    <div class="left">
+      <div class="close">
+        <img class="invert" src="img/close.svg" alt="">
+      </div>
+      <div class="home bg-grey rounded m-1 p-1">
+        <div class="logo"><img width="100" class="invert" src="img/logo.svg" alt="" /></div>
+        <ul>
+          <li><img class="invert" src="img/home.svg" alt="home" />Home</li>
+
+          <li><img class="invert" src="img/search.svg" alt="search" />Search</li>
+        </ul>
+      </div>
+      <div class="library bg-grey rounded m-1 p-1">
+        <div class="heading">
+          <h2>Your library</h2>
+        </div>
+        <div class="songList">
+          <ul>
+          </ul>
+
+        </div>
+
+        <div class="footer">
+          <div>
+            <a href="https://www.spotify.com/jp/legal/"><span>Legal</span></a>
+          </div>
+          <div>
+            <a href="https://www.spotify.com/jp/privacy/"><span>Privacy Center</span></a>
+          </div>
+          <div>
+            <a href="https://www.spotify.com/jp/legal/privacy-policy/"><span>Privacy Policy</span></a>
+          </div>
+          <div>
+            <a href="https://www.spotify.com/jp/legal/cookies-policy/"><span>Cookies</span></a>
+          </div>
+          <div>
+            <a href="https://www.spotify.com/jp/legal/privacy-policy/#s3"><span>About Ads</span></a>
+          </div>
+          <div>
+            <a href="https://www.spotify.com/jp/accessibility/"><span>Accessibility</span></a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="right border bg-grey rounded">
+      <div class="header">
+        <div class="nav">
+          <div class="hamburgercontainer">
+          <img class = "invert hamburger" src="img/hamburger.svg" alt="" style="height:35px">
+          <svg width="20px" height="20px" viewBox="0 0 117 117" version="1.1" xmlns="http://www.w3.org/2000/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink">
+            <title />
+
+            <desc />
+
+            <defs />
+
+            <g fill="none" fill-rule="evenodd" id="Page-1" stroke="none" stroke-width="1">
+              <g fill-rule="nonzero" id="left-arrow">
+                <path
+                  d="M58.5,116.6 C90.5,116.6 116.6,90.6 116.6,58.5 C116.6,26.4 90.6,0.5 58.5,0.5 C26.4,0.5 0.5,26.5 0.5,58.5 C0.5,90.5 26.5,116.6 58.5,116.6 Z M58.5,8.6 C86,8.6 108.4,31 108.4,58.5 C108.4,86 86,108.4 58.5,108.4 C31,108.4 8.6,86 8.6,58.5 C8.6,31 31,8.6 58.5,8.6 Z"
+                  fill="#4A4A4A" id="Shape" />
+
+                <path
+                  d="M64,87.5 C64.8,88.3 65.8,88.7 66.9,88.7 C67.9,88.7 69,88.3 69.8,87.5 C71.4,85.9 71.4,83.3 69.8,81.7 L46.3,58.2 L69.8,34.7 C71.4,33.1 71.4,30.5 69.8,28.9 C68.2,27.3 65.6,27.3 64,28.9 L37.6,55.3 C36.8,56.1 36.4,57.1 36.4,58.2 C36.4,59.3 36.8,60.3 37.6,61.1 L64,87.5 Z"
+                  fill="#fff" id="Shape" />
+              </g>
+            </g>
+          </svg>
+          <svg width="20px" height="20px" viewBox="0 0 117 117" version="1.1" xmlns="http://www.w3.org/2000/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink">
+            <title />
+
+            <desc />
+
+            <defs />
+
+            <g fill="none" fill-rule="evenodd" id="Page-1" stroke="none" stroke-width="1">
+              <g fill-rule="nonzero" id="right-arrow">
+                <path
+                  d="M58.5,116.6 C90.5,116.6 116.6,90.6 116.6,58.5 C116.6,26.4 90.5,0.4 58.5,0.4 C26.5,0.4 0.4,26.5 0.4,58.5 C0.4,90.5 26.5,116.6 58.5,116.6 Z M58.5,8.6 C86,8.6 108.4,31 108.4,58.5 C108.4,86 86,108.4 58.5,108.4 C31,108.4 8.6,86 8.6,58.5 C8.6,31 31,8.6 58.5,8.6 Z"
+                  fill="#4A4A4A" id="Shape" />
+
+                <path
+                  d="M45.1,87.5 C45.9,88.3 46.9,88.7 48,88.7 C49,88.7 50.1,88.3 50.9,87.5 L77.3,61.1 C78.1,60.3 78.5,59.3 78.5,58.2 C78.5,57.1 78.1,56.1 77.3,55.3 L50.9,28.9 C49.3,27.3 46.7,27.3 45.1,28.9 C43.5,30.5 43.5,33.1 45.1,34.7 L68.6,58.2 L45.1,81.7 C43.5,83.3 43.5,85.9 45.1,87.5 Z"
+                  fill="#fff" id="Shape" />
+              </g>
+            </g>
+          </svg>
+          </div>
+        </div>
+        <div class="buttons">
+          <button class="signupbtn">Signup</button>
+          <button class="loginbtn">Log in</button>
+        </div>
+      </div>
+      <div class="spotifyPlaylists">
+        <h1>Spotify Playlists</h1>
+        <div class="cardContainer">
+          </div>
+
+          <div class="playbar">
+            <div class="seekbar">
+              <div class="circle">
+
+              </div>
+            </div>
+            <div class="abovebar">
+
+
+              <div class="songinfo">
+
+              </div>
+
+              <div class="songbuttons">
+                <img width="35" id="previous" src="img/prev.svg" alt="" />
+                <img width="35" id="play" src="img/play.svg" alt="" />
+                <img width="35" id="next" src="img/next.svg" alt="" />
+              </div>
+              <div class="timevol">
+
+                
+                <div class="songtime"></div>
+                
+                <div class="volume">
+                  <img width="25" src="img/volume.svg" alt="">
+                  <div class="range">
+                    <input type="range" name="volume" id="">
+                  </div>
+                  
+                </div>
+              </div>
+
+
+
+            
+          </div>
+         </div>
+        </div>
+      </div>
+    </div>
+
+
+
+
+
+
+    <script src="js/script.js"></script>
+</body>
+
+</html>
