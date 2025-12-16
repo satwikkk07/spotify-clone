@@ -124,13 +124,79 @@ async function displayAlbums() {
 
 }
 
+
+
+
+
 async function main() {
+
+
+  document.getElementById("searchBtn").addEventListener("click", async () => {
+  const query = document.getElementById("searchInput").value.trim();
+  if (!query) return;
+
+  const response = await fetch(`http://localhost:5000/api/search?q=${query}`);
+  const results = await response.json();
+
+  renderSearchResults(results);
+});
+
+document.getElementById("searchInput").addEventListener("keydown", async (e) => {
+  if (e.key === "Enter") {
+    document.getElementById("searchBtn").click();
+  }
+});
+
+
+
+
+function renderSearchResults(songsData) {
+  let songUL = document
+    .querySelector(".songList")
+    .getElementsByTagName("ul")[0];
+
+  songUL.innerHTML = ""; // clear old list
+
+  songsData.forEach(song => {
+    let li = document.createElement("li");
+    li.innerHTML = `
+      <img src="${song.artwork}" alt="">
+      <div class="info">
+        <div>${song.title}</div>
+        <div>${song.artist}</div>
+      </div>
+      <div class="playnow">
+        <span>Play Preview</span>
+      </div>
+    `;
+
+    li.addEventListener("click", () => {
+      playOnlineSong(song.preview, song.title);
+    });
+
+    songUL.appendChild(li);
+  });
+}
 
 
 
   //Get All Songs List
   await getSongs("songs/south");
   playMusic(songs[0], true)
+
+  function playOnlineSong(previewUrl, title) {
+  if (!previewUrl) {
+    alert("Preview not available for this song");
+    return;
+  }
+
+  currentSong.src = previewUrl;
+  currentSong.play();
+
+  document.querySelector(".songinfo").innerText = title;
+  play.src = "img/pause.svg";
+}
+
 
 
   //Display all the albums on the page

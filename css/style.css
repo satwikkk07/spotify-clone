@@ -27,6 +27,30 @@ body{
 
 }
 
+.searchBar {
+  display: flex;
+  gap: 10px;
+  padding: 10px 30px;
+  max-width: 450px;
+  width: 100%;
+}
+
+.searchBar input {
+  flex: 1;
+  padding: 8px;
+  border-radius: 4px;
+  border: none;
+}
+
+.searchBar button {
+  padding: 8px 14px;
+  background: #1db954;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+
 
 .home ul li {
     display: flex;
@@ -83,7 +107,9 @@ body{
 
 .header{
     display: flex;
+    align-items: center;
     justify-content: space-between;
+
     background-color: rgb(34,34,34);
 }
 
@@ -242,6 +268,8 @@ body{
     justify-content: center;
     align-items: center;
     gap: 14px;
+    width: auto;
+    flex-shrink: 0;
 }
 .songList ul li {
     list-style-type: decimal;
