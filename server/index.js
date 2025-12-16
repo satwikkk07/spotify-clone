@@ -44,6 +44,30 @@ app.get("/api/search", async (req, res) => {
   }
 });
 
+const fs = require("fs");
+const path = require("path");
+
+const favFile = path.join(__dirname, "favorites.json");
+
+// Get favorites
+app.get("/api/favorites", (req, res) => {
+  const data = JSON.parse(fs.readFileSync(favFile, "utf-8"));
+  res.json(data);
+});
+
+// Add favorite
+app.post("/api/favorites", (req, res) => {
+  const song = req.body;
+
+  const data = JSON.parse(fs.readFileSync(favFile, "utf-8"));
+
+  data.push(song);
+
+  fs.writeFileSync(favFile, JSON.stringify(data, null, 2));
+  res.json({ success: true });
+});
+
+
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
 });
