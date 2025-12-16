@@ -50,6 +50,20 @@ body{
   cursor: pointer;
 }
 
+#clearSearch {
+  background: transparent;
+  border: none;
+  color: #aaa;
+  font-size: 18px;
+  cursor: pointer;
+  padding: 0 6px;
+}
+
+#clearSearch:hover {
+  color: #fff;
+}
+
+
 
 
 .home ul li {

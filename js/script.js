@@ -147,6 +147,19 @@ document.getElementById("searchInput").addEventListener("keydown", async (e) => 
   }
 });
 
+document.getElementById("clearSearch").addEventListener("click", () => {
+  const input = document.getElementById("searchInput");
+  input.value = "";
+
+  let songUL = document
+    .querySelector(".songList")
+    .getElementsByTagName("ul")[0];
+
+  songUL.innerHTML = ""; // clear search results
+});
+
+
+
 
 
 
@@ -177,6 +190,8 @@ function renderSearchResults(songsData) {
     songUL.appendChild(li);
   });
 }
+
+
 
 
 
