@@ -1,5 +1,21 @@
 console.log("Lets write JS");
 
+const searchInput = document.getElementById("searchInput");
+const clearBtn = document.getElementById("clearSearch");
+
+searchInput.addEventListener("input", () => {
+  clearBtn.style.display = searchInput.value ? "block" : "none";
+});
+
+clearBtn.addEventListener("click", () => {
+  searchInput.value = "";
+  clearBtn.style.display = "none";
+
+  let songUL = document
+    .querySelector(".songList")
+    .getElementsByTagName("ul")[0];
+  songUL.innerHTML = "";
+});
 
 
 let currentSong = new Audio();
@@ -38,10 +54,10 @@ async function getSongs(folder) {
   let songUL = document
     .querySelector(".songList")
     .getElementsByTagName("ul")[0];
-    songUL.innerHTML ="";
+  songUL.innerHTML = "";
 
   for (const song of songs) {
-      songUL.innerHTML +=
+    songUL.innerHTML +=
       `<li><img class="invert" src="img/music.svg" alt="" >
                 <div class="info">
                   <div>${song.replaceAll("%20", " ")}  </div>
@@ -53,16 +69,21 @@ async function getSongs(folder) {
                 </div></li>`;
   }
 
-  //Attach an event Listener to each song
-  Array.from(document.querySelector(".songList").getElementsByTagName("li")).forEach(e => {
-    e.addEventListener("click", element => {
-      console.log(e.querySelector(".info").firstElementChild.innerHTML)
-      playMusic(e.querySelector(".info").firstElementChild.innerHTML.trim())
+  Array.from(document.querySelector(".songList").getElementsByTagName("li")).forEach(li => {
+    li.addEventListener("click", () => {
 
-    })
+      // remove active from all
+      document.querySelectorAll(".songList li").forEach(el => {
+        el.classList.remove("active");
+      });
 
+      // add active to clicked
+      li.classList.add("active");
 
-  })
+      playMusic(li.querySelector(".info").firstElementChild.innerHTML.trim());
+    });
+  });
+
 
   return songs;
 }
@@ -107,7 +128,7 @@ async function displayAlbums() {
             <h2> ${response.title}</h2>
             <p >${response.description}</p>
           </div>`
-          
+
 
 
     }
@@ -132,64 +153,89 @@ async function main() {
 
 
   document.getElementById("searchBtn").addEventListener("click", async () => {
-  const query = document.getElementById("searchInput").value.trim();
-  if (!query) return;
+    const query = document.getElementById("searchInput").value.trim();
+    if (!query) return;
 
-  const response = await fetch(`http://localhost:5000/api/search?q=${query}`);
-  const results = await response.json();
+    const response = await fetch(`http://localhost:5000/api/search?q=${query}`);
+    const results = await response.json();
 
-  renderSearchResults(results);
-});
+    renderSearchResults(results);
+  });
 
-document.getElementById("searchInput").addEventListener("keydown", async (e) => {
-  if (e.key === "Enter") {
-    document.getElementById("searchBtn").click();
-  }
-});
+  document.getElementById("searchInput").addEventListener("keydown", async (e) => {
+    if (e.key === "Enter") {
+      document.getElementById("searchBtn").click();
+    }
+  });
 
-document.getElementById("clearSearch").addEventListener("click", () => {
-  const input = document.getElementById("searchInput");
-  input.value = "";
+  document.getElementById("clearSearch").addEventListener("click", () => {
+    const input = document.getElementById("searchInput");
+    input.value = "";
 
-  let songUL = document
-    .querySelector(".songList")
-    .getElementsByTagName("ul")[0];
+    let songUL = document
+      .querySelector(".songList")
+      .getElementsByTagName("ul")[0];
 
-  songUL.innerHTML = ""; // clear search results
-});
-
-
+    songUL.innerHTML = ""; // clear search results
+  });
 
 
 
 
-function renderSearchResults(songsData) {
-  let songUL = document
-    .querySelector(".songList")
-    .getElementsByTagName("ul")[0];
 
-  songUL.innerHTML = ""; // clear old list
 
-  songsData.forEach(song => {
-    let li = document.createElement("li");
-    li.innerHTML = `
-      <img src="${song.artwork}" alt="">
-      <div class="info">
-        <div>${song.title}</div>
-        <div>${song.artist}</div>
-      </div>
-      <div class="playnow">
-        <span>Play Preview</span>
-      </div>
-    `;
+  function renderSearchResults(songsData) {
+    let songUL = document
+      .querySelector(".songList")
+      .getElementsByTagName("ul")[0];
 
-    li.addEventListener("click", () => {
-      playOnlineSong(song.preview, song.title);
+    songUL.innerHTML = ""; // clear old list
+
+    songUL.innerHTML = "";
+
+songsData.forEach(song => {
+  let li = document.createElement("li");
+
+  li.innerHTML = `
+    <img src="${song.artwork}" alt="">
+    <div class="info">
+      <div>${song.title}</div>
+      <div>${song.artist}</div>
+    </div>
+    <button class="favBtn">⭐</button>
+    <div class="playnow">
+      <span>Play Preview</span>
+    </div>
+  `;
+
+  li.addEventListener("click", () => {
+    document.querySelectorAll(".songList li").forEach(el => {
+      el.classList.remove("active");
     });
 
-    songUL.appendChild(li);
+    li.classList.add("active");
+    playOnlineSong(song.preview, song.title);
   });
-}
+
+  li.querySelector(".favBtn").addEventListener("click", async (e) => {
+    e.stopPropagation();
+
+    await fetch("http://localhost:5000/api/favorites", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        title: song.title,
+        artist: song.artist
+      })
+    });
+
+    alert("Added to favorites ⭐");
+  });
+
+  songUL.appendChild(li);
+});
+
+  }
 
 
 
@@ -200,17 +246,17 @@ function renderSearchResults(songsData) {
   playMusic(songs[0], true)
 
   function playOnlineSong(previewUrl, title) {
-  if (!previewUrl) {
-    alert("Preview not available for this song");
-    return;
+    if (!previewUrl) {
+      alert("Preview not available for this song");
+      return;
+    }
+
+    currentSong.src = previewUrl;
+    currentSong.play();
+
+    document.querySelector(".songinfo").innerText = title;
+    play.src = "img/pause.svg";
   }
-
-  currentSong.src = previewUrl;
-  currentSong.play();
-
-  document.querySelector(".songinfo").innerText = title;
-  play.src = "img/pause.svg";
-}
 
 
 
@@ -243,13 +289,13 @@ function renderSearchResults(songsData) {
   })
 
   // 🔥 AUTO PLAY NEXT SONG WHEN CURRENT ENDS
-currentSong.addEventListener("ended", () => {
-  let index = songs.indexOf(currentSong.src.split("/").slice(-1)[0]);
+  currentSong.addEventListener("ended", () => {
+    let index = songs.indexOf(currentSong.src.split("/").slice(-1)[0]);
 
-  if (index + 1 < songs.length) {
-    playMusic(songs[index + 1]);
-  }
-});
+    if (index + 1 < songs.length) {
+      playMusic(songs[index + 1]);
+    }
+  });
 
   //Add event listener to seekbar
   document.querySelector(".seekbar").addEventListener("click", e => {
